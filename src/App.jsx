@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react'
+import Login from './components/login/login'
 
-export default function App() {
 
-    return (
-        <div>
-            login
-        </div>);
-};
+export default class App extends Component {
+
+
+    render() {
+        return (
+            <div>
+                <Login></Login>
+            </div>
+        )
+    }
+}
+
