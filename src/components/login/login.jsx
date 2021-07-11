@@ -2,13 +2,31 @@ import React, { Component } from 'react'
 import { Form, Input, Button, } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import './login.css'
+import './login.less'
 import logo from '../../assets/images/logo.png'
 
+const Base = 'http://localhost:5000'
 export default class Login extends Component {
 
-  onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  onFinish = async (values) => {
+    console.log('调用了');
+
+    const { username, password } = values;
+    console.log('账号:', username);
+    console.log('密码:', password);
+
+    try {
+      const response = await fetch({ Base } + `/api1/login`, {
+        username: username,
+        password: password
+      }, 'POST')
+      console.log(response);
+
+    }
+    catch (error) {
+      console.log(error);
+    }
+
   };
 
 
@@ -39,7 +57,7 @@ export default class Login extends Component {
                 },
               ]}
             >
-              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" />
+              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" autoComplete="off" />
             </Form.Item>
             <Form.Item
               name="password"
