@@ -1,42 +1,20 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { reqLogin } from '../../api/index'
 
-import './login.less'
+import './index.less'
 import logo from '../../assets/images/logo.png'
 
 export default class Login extends Component {
 
   onFinish = async (values) => {
-
-
-
     const { username, password } = values;
-    console.log('账号:', username);
-    console.log('密码:', password);
     const postData = JSON.stringify({
       username,
       password
     })
-    try {
-      const response = await fetch(`/login`, {
-        method: 'POST',
-        body: postData,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const data = await response.json()
-
-      if (data.status === 0)
-        message.success('登陆成功')
-      else
-        message.error(data.msg)
-    }
-    catch (error) {
-      message.error(error)
-    }
-
+    reqLogin(`/login`, postData)
   };
 
 
