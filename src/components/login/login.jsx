@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './login.less'
@@ -9,6 +9,8 @@ export default class Login extends Component {
 
   onFinish = async (values) => {
 
+
+
     const { username, password } = values;
     console.log('账号:', username);
     console.log('密码:', password);
@@ -17,21 +19,22 @@ export default class Login extends Component {
       password
     })
     try {
-      const response = await fetch(`a/login`, {
+      const response = await fetch(`/login`, {
         method: 'POST',
         body: postData,
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      console.log(response.json());
+      const data = await response.json()
 
-      // const data = response.json()
-      // console.log(data);
-
+      if (data.status === 0)
+        message.success('登陆成功')
+      else
+        message.error(data.msg)
     }
     catch (error) {
-      console.log(error);
+      message.error(error)
     }
 
   };
