@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import service from '../../api/service'
-
+import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
 import './index.less'
 import logo from '../../assets/images/logo.png'
 
@@ -11,11 +12,19 @@ export default class Login extends Component {
   onFinish = async (values) => {
     const { username, password } = values;
 
-    const data = await service.reqLogin(username, password)
-    if (data.status === 0)
+    const res = await service.reqLogin(username, password)
+    if (res.status === 0) {
       message.success('登陆成功')
+
+      const user = res.data
+      memoryUtils.user = user // 保存在内存中
+      storageUtils.saveUser(user) // 保存到local中
+
+      this.props.history.replace('/')
+    }
+
     else
-      message.error(data.msg)
+      message.error(res.msg)
 
   };
 
