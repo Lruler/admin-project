@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { ThunderboltOutlined } from '@ant-design/icons'
+import { Modal } from 'antd'
+import { ThunderboltOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 
-
+import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
 import formateDate from '../../utils/dateUtils'
 import menuList from '../../config/menuConfig'
 import LinkButton from '../link-button'
 import './index.css'
 
+const { confirm } = Modal;
+
 class Header extends Component {
+
 
     state = {
         currentTime: formateDate(Date.now()),
@@ -44,9 +48,29 @@ class Header extends Component {
         return title
     }
 
+
+    logout = () => {
+        confirm({
+            title: '确认要退出登陆吗?',
+            icon: <ExclamationCircleOutlined />,
+            onOk: () => {
+                storageUtils.removeUser()
+                memoryUtils.user = {}
+
+                // 跳转到login
+                this.props.history.replace('/login')
+            },
+        });
+    }
+
     componentDidMount() {
         // 获取当前的时间
         this.getTime()
+    }
+
+    componentWillUnmount() {
+        // 清除定时器
+        clearInterval(this.intervalId)
     }
 
     render() {
