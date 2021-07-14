@@ -37,13 +37,17 @@ export default class Admin extends Component {
                     </Sider>
                     <Layout>
                         <Header />
-                        <Content style={{ backgroundColor: 'white' }}><Switch>
-                            <Switch>
-                                <Route path='/home' component={Home} />
-                                <Route path='/category' component={Category} /> <Route path='/product' component={Product} /> <Route path='/role' component={Role} />
-                                <Route path='/user' component={User} />
-                                <Route path='/charts/bar' component={Bar} /> <Route path='/charts/line' component={Line} /> <Route path='/charts/pie' component={Pie} /> <Redirect to='/home' />
-                            </Switch></Switch></Content>
+                        <Content style={{
+                            marginLeft: '20px',
+                            marginTop: '20px',
+                            backgroundColor: 'white'
+                        }}><Switch>
+                                <Switch>
+                                    <Route path='/home' component={Home} />
+                                    <Route path='/category' component={Category} /> <Route path='/product' component={Product} /> <Route path='/role' component={Role} />
+                                    <Route path='/user' component={User} />
+                                    <Route path='/charts/bar' component={Bar} /> <Route path='/charts/line' component={Line} /> <Route path='/charts/pie' component={Pie} /> <Redirect to='/home' />
+                                </Switch></Switch></Content>
                         <Footer style={{ textAlign: 'center', color: 'gray' }}>这是前端小白Lruler的实战项目</Footer>
                     </Layout>
                 </Layout>
