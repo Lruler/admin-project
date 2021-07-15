@@ -46,13 +46,10 @@ const Fetch = async (url, data = {}, method = 'GET') => {
 
 const service = {
     // Login
-
     reqLogin(username, password) { return Fetch(Base + '/login', { username, password }, 'POST') },
-
 
     // 获取分类
     reqCategories(parentId) { return Fetch(Base + '/manage/category/list', { parentId }) },
-
 
     // 添加分类
     reqAddCategory(categoryName, parentId) { return Fetch(Base + '/manage/category/add', { categoryName, parentId }, 'POST') },
