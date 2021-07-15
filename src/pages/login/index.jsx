@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import service from '../../api/service'
@@ -29,7 +30,16 @@ export default class Login extends Component {
   };
 
 
+
   render() {
+
+
+
+    const user = memoryUtils.user
+    if (user && user._id) {
+      return <Redirect to='/' />
+    }
+
     return (
       <div className='login'>
         <header className="login-header">
@@ -52,8 +62,11 @@ export default class Login extends Component {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Username!',
+                  message: '必须输入用户名',
                 },
+                { min: 4, message: '用户名至少4位' },
+                { max: 12, message: '用户名最多12位' },
+                { pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须是英文、数字或下划线组成' },
               ]}
             >
               <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" autoComplete="off" />
@@ -63,8 +76,11 @@ export default class Login extends Component {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Password!',
+                  message: '必须输入用户名',
                 },
+                { min: 4, message: '用户名至少4位' },
+                { max: 12, message: '用户名最多12位' },
+                { pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须是英文、数字或下划线组成' },
               ]}
             >
               <Input
